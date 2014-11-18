@@ -33,6 +33,9 @@ if __name__ == "__main__":
         queens.append(int(n))
     queens = tuple(queens)  # Make immutable since order matters
 
+    # Verify the executable output the expected number of queens
+    assert len(queens) == dimension
+
     # Since the x coordinates are represented by indices, columns may only
     # contain one queen
 
