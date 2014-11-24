@@ -19,6 +19,33 @@ import subprocess
 import sys
 import os
 
+def verify_diagonals(queens, dimension):
+    """Verify the diagonals using brute force"""
+    for x, y in enumerate(queens):
+        for n in range(1, dimension):
+            print("x=%s, y=%s, n=%s" % (x, y, n))
+            if x + n < dimension and x - n >= 0:
+                assert y + n != queens[x + n], "%s != %s" % (y + n, queens[x + n])
+                assert y - n != queens[x + n], "%s != %s" % (y - n, queens[x + n])
+            if x - n < dimension and x - n >= 0:
+                assert y - n != queens[x - n], "%s != %s" % (y - n, queens[x - n])
+                assert y + n != queens[x - n], "%s != %s" % (y + n, queens[x - n])
+
+def verify_rows(queens):
+    """A set cannot contain duplicate elements. Therefore if the set and tuple
+    structures contain the same number of elements no duplicates existed and
+    each row only contains one queen"""
+    assert len(queens) == len(set(queens))
+
+def verify_columns():
+    """Since the x coordinates are represented by indices, columns may only
+    contain one queen"""
+    pass
+
+def verify_num_queens(queens, dimension):
+    """Verify the executable output the expected number of queens"""
+    assert len(queens) == dimension
+
 if __name__ == "__main__":
     filename = sys.argv[1]
     dimension = sys.argv[2]
@@ -33,24 +60,7 @@ if __name__ == "__main__":
         queens.append(int(n))
     queens = tuple(queens)  # Make immutable since order matters
 
-    # Verify the executable output the expected number of queens
-    assert len(queens) == dimension
-
-    # Since the x coordinates are represented by indices, columns may only
-    # contain one queen
-
-    # A set cannot contain duplicate elements. Therefore if the set and tuple
-    # structures contain the same number of elements no duplicates existed and
-    # each row only contains one queen
-    assert len(queens) == len(set(queens))
-
-    # Verify the diagonals using brute force
-    for x, y in enumerate(queens):
-        for n in range(1, dimension):
-            print("x=%s, y=%s, n=%s" % (x, y, n))
-            if x + n < dimension and x - n >= 0:
-                assert y + n != queens[x + n], "%s != %s" % (y + n, queens[x + n])
-                assert y - n != queens[x + n], "%s != %s" % (y - n, queens[x + n])
-            if x - n < dimension and x - n >= 0:
-                assert y - n != queens[x - n], "%s != %s" % (y - n, queens[x - n])
-                assert y + n != queens[x - n], "%s != %s" % (y + n, queens[x - n])
+    verify_num_queens(queens, dimension)
+    verify_columns()
+    verify_rows(queens)
+    verify_diagonals(queens, dimension)
