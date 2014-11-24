@@ -23,7 +23,6 @@ def verify_diagonals(queens, dimension):
     """Verify the diagonals using brute force"""
     for x, y in enumerate(queens):
         for n in range(1, dimension):
-            print("x=%s, y=%s, n=%s" % (x, y, n))
             if x + n < dimension and x - n >= 0:
                 assert y + n != queens[x + n], "%s != %s" % (y + n, queens[x + n])
                 assert y - n != queens[x + n], "%s != %s" % (y - n, queens[x + n])
