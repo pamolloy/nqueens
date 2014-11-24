@@ -29,4 +29,5 @@ def naive_solver(board_size):
         except: pass
     print len(solutions)
 
-naive_solver(int(sys.argv[1]))
+if __name__ == "__main__":
+    naive_solver(int(sys.argv[1]))
