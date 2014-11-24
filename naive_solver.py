@@ -4,25 +4,17 @@ import sys
 import itertools
 import subprocess
 
+from verify import *
+
 def naive_solver(board_size):
     permutations = list(itertools.permutations(range(board_size)))
     solutions = []
     for permutation in permutations:
         try:
-            assert len(permutation) == board_size
-            assert len(permutation) == len(set(perm))
-
-            # Verify the diagonals using brute force
-            for x, y in enumerate(permutation):
-                for n in range(1, board_size):
-                    #print("x=%s, y=%s, n=%s" % (x, y, n))
-                    if x + n < board_size and x - n >= 0:
-                        assert y + n != permutation[x + n], "%s != %s" % (y + n, permutation[x + n])
-                        assert y - n != permutation[x + n], "%s != %s" % (y - n, permutation[x + n])
-                    if x - n < board_size and x - n >= 0:
-                        assert y - n != permutation[x - n], "%s != %s" % (y - n, permutation[x - n])
-                        assert y + n != permutation[x - n], "%s != %s" % (y + n, permutation[x - n])
-
+            verify_num_queens(permutation, board_size)
+            verify_columns()
+            verify_rows(permutation)
+            verify_diagonals(permutation, board_size)
             solutions.append(permutation)
         except: pass
     print len(solutions)
