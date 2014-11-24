@@ -17,7 +17,7 @@ def naive_solver(board_size):
             verify_diagonals(permutation, board_size)
             solutions.append(permutation)
         except: pass
-    print len(solutions)
+    print(len(solutions))
 
 if __name__ == "__main__":
     naive_solver(int(sys.argv[1]))
