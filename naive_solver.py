@@ -9,8 +9,6 @@ def naive_solver(board_size):
     solutions = []
     for permutation in permutations:
         try:
-            board_size = int(board_size)
-
             assert len(permutation) == board_size
             assert len(permutation) == len(set(perm))
 
